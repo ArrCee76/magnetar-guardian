@@ -2,34 +2,34 @@
 
 **Safe browsing for the whole family** 🛡️
 
-Magnetar Guardian is a browser extension that blocks adult content, phishing, scams, and unsafe websites — with age-based profiles and PIN-locked settings. It's not surveillance software. No data collection, no tracking, no logging. Everything runs locally in your browser.
+Magnetar Guardian is a browser extension that blocks adult content, phishing, scams, and unsafe websites with age-based profiles and PIN-locked settings. It's not surveillance software. No data collection, no tracking, no logging. Everything runs locally in your browser.
 
 Part of the [Magnetar](https://github.com/ArrCee76/magnetar) extension family.
 
 ## Features
 
 ### 🎯 Four Age-Based Profiles
-- **Young Child** (Under 7) — Maximum protection. All categories blocked, safe search enforced, social media blocked.
-- **Child** (7–12) — Strong protection. Adult, gambling, violence, drugs, social media blocked. Safe search enforced.
-- **Teen** (13–17) — Moderate protection. Adult and gambling blocked. Social media and safe search left open.
-- **Vulnerable Adult** — Scam and phishing protection for non-tech-savvy adults. Blocks phishing, malware, and gambling. Normal browsing unrestricted.
+- **Young Child** (Under 7) Maximum protection. All categories blocked, safe search enforced, social media blocked.
+- **Child** (7–12) Strong protection. Adult, gambling, violence, drugs, social media blocked. Safe search enforced.
+- **Teen** (13–17) Moderate protection. Adult and gambling blocked. Social media and safe search left open.
+- **Vulnerable Adult** Scam and phishing protection for non-tech-savvy adults. Blocks phishing, malware, and gambling. Normal browsing unrestricted.
 
-Every toggle is fully configurable — the profile just sets sensible defaults.
+Every toggle is fully configurable, the profile just sets sensible defaults.
 
 ### 🔒 PIN-Protected Settings
 Guardian creates a 4–8 digit PIN during setup. All settings, profile changes, and bypass mode require the PIN. Kids can't disable protection or change anything.
 
 ### 🛡️ Domain Blocking
 200,000+ domains blocked across 9 categories:
-- **Adult Content** — Pornography and explicit material
-- **Gambling** — Betting sites, online casinos
-- **Violence & Hate** — Graphic violence, hate speech, extremist content
-- **Drugs** — Drug-related content
-- **Dating** — Dating platforms and hookup apps
-- **Proxies & VPNs** — Sites that could bypass protection
-- **Social Media** — Facebook, Instagram, TikTok, X, Snapchat, Reddit, Discord, and more
-- **Phishing & Scams** — Known phishing and fraud domains
-- **Malware** — Sites distributing malicious software
+- **Adult Content** - Pornography and explicit material
+- **Gambling** - Betting sites, online casinos
+- **Violence & Hate** - Graphic violence, hate speech, extremist content
+- **Drugs** - Drug-related content
+- **Dating** - Dating platforms and hookup apps
+- **Proxies & VPNs** - Sites that could bypass protection
+- **Social Media** - Facebook, Instagram, TikTok, X, Snapchat, Reddit, Discord, and more
+- **Phishing & Scams** - Known phishing and fraud domains
+- **Malware** - Sites distributing malicious software
 
 ### 🔍 Safe Search Enforcement
 Forces filtered results on Google, Bing, DuckDuckGo, Ecosia, and YouTube Restricted Mode. Toggleable by the guardian.
@@ -38,11 +38,11 @@ Forces filtered results on Google, Bing, DuckDuckGo, Ecosia, and YouTube Restric
 Temporarily pause all blocking for 15, 30, or 60 minutes so the guardian can browse freely. Protection re-enables automatically with a live countdown timer.
 
 ### 📋 Allowed & Excluded Sites
-- **Allowed Sites** — Whitelist domains that shouldn't be blocked (e.g. a safe site caught by a blocklist)
-- **Excluded Sites** — Manually block specific domains not covered by the blocklists
+- **Allowed Sites** - Whitelist domains that shouldn't be blocked (e.g. a safe site caught by a blocklist)
+- **Excluded Sites** - Manually block specific domains not covered by the blocklists
 
 ### 📊 Privacy-First Stats
-Badge shows today's block count. Dashboard shows weekly stats. No URLs or browsing history are ever recorded — just aggregate counts.
+Badge shows today's block count. Dashboard shows weekly stats. No URLs or browsing history are ever recorded just aggregate counts.
 
 ### 🔔 Review Requests
 When a user hits a blocked site multiple times, they can request the guardian review it. Requests appear in the dashboard for the guardian to approve or dismiss.
@@ -135,6 +135,10 @@ See [PRIVACY.md](PRIVACY.md) for the full privacy policy.
 ## Contributing
 
 Issues and pull requests are welcome. If you'd like to suggest additional blocklist sources or report false positives, please open an issue.
+
+## Built With
+
+Developed with assistance from Opus 4.6 to optimize code structure and logic.
 
 ## Support
 
