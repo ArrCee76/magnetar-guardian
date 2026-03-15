@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnetar Guardian — Setup</title>
+  <link rel="stylesheet" href="setup.css">
+</head>
+<body>
+  <div class="setup-container">
+    <!-- Step 1: Welcome -->
+    <div class="step active" id="step-welcome">
+      <div class="shield-icon">🛡️</div>
+      <h1>Welcome to Magnetar Guardian</h1>
+      <p class="subtitle">Safe browsing for the whole family</p>
+      <p class="desc">Let's get your protection set up. This will only take a minute.</p>
+      <button class="btn-primary" id="btn-get-started">Get Started</button>
+    </div>
+
+    <!-- Step 2: Create PIN -->
+    <div class="step" id="step-pin">
+      <h2>Create a Guardian PIN</h2>
+      <p class="desc">This PIN protects your settings. Only you should know it.<br>You'll need it to change settings, pause protection, or access the dashboard.</p>
+      <div class="pin-input-group">
+        <label for="pin1">Enter PIN (4–8 digits)</label>
+        <input type="password" id="pin1" maxlength="8" pattern="[0-9]*" inputmode="numeric" placeholder="••••" autocomplete="off">
+      </div>
+      <div class="pin-input-group">
+        <label for="pin2">Confirm PIN</label>
+        <input type="password" id="pin2" maxlength="8" pattern="[0-9]*" inputmode="numeric" placeholder="••••" autocomplete="off">
+      </div>
+      <p class="error" id="pin-error"></p>
+      <button class="btn-primary" id="btn-set-pin">Set PIN</button>
+    </div>
+
+    <!-- Step 3: Choose Age Profile -->
+    <div class="step" id="step-profile">
+      <h2>Who will be using this browser?</h2>
+      <p class="desc">This sets the default protection level. You can customise every setting on the next screen.</p>
+      
+      <div class="profile-cards">
+        <div class="profile-card" data-profile="young">
+          <div class="profile-emoji">🧒</div>
+          <h3>Young Child</h3>
+          <p>Under 7</p>
+          <span class="profile-desc">Maximum protection. All unsafe categories blocked, safe search enforced, social media blocked.</span>
+        </div>
+
+        <div class="profile-card" data-profile="child">
+          <div class="profile-emoji">👦</div>
+          <h3>Child</h3>
+          <p>Ages 7–12</p>
+          <span class="profile-desc">Strong protection. Adult, gambling, violence, and drugs blocked. Safe search enforced.</span>
+        </div>
+
+        <div class="profile-card" data-profile="teen">
+          <div class="profile-emoji">🧑</div>
+          <h3>Teen</h3>
+          <p>Ages 13–17</p>
+          <span class="profile-desc">Moderate protection. Adult and gambling blocked. Social media and safe search left open.</span>
+        </div>
+
+        <div class="profile-card" data-profile="vulnerable">
+          <div class="profile-emoji">🧓</div>
+          <h3>Vulnerable Adult</h3>
+          <p>Scam &amp; phishing protection</p>
+          <span class="profile-desc">Protects against phishing, scams, malware, and gambling. Normal browsing unrestricted.</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-confirm-profile" disabled>Continue to Settings</button>
+    </div>
+
+    <!-- Progress dots -->
+    <div class="progress-dots">
+      <span class="dot active" data-step="welcome"></span>
+      <span class="dot" data-step="pin"></span>
+      <span class="dot" data-step="profile"></span>
+    </div>
+  </div>
+
+  <script src="../lib/pin-utils.js"></script>
+  <script src="setup.js"></script>
+</body>
+</html>

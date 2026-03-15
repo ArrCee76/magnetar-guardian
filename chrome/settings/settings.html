@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardian Settings — Magnetar Guardian</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <!-- PIN Gate -->
+  <div id="pin-gate" class="pin-gate">
+    <div class="pin-box">
+      <div class="pin-icon">🔒</div>
+      <h2>Enter Guardian PIN</h2>
+      <input type="password" id="pin-input" maxlength="8" pattern="[0-9]*" inputmode="numeric" placeholder="••••" autocomplete="off">
+      <p class="pin-error" id="pin-error"></p>
+      <button class="btn-primary" id="btn-verify-pin">Unlock</button>
+    </div>
+  </div>
+
+  <!-- Settings Dashboard -->
+  <div id="dashboard" class="dashboard" style="display:none">
+    <header class="dash-header">
+      <div class="dash-title">
+        <span class="dash-logo">🛡️</span>
+        <h1>Guardian Settings</h1>
+      </div>
+      <div class="header-actions">
+        <a href="https://buymeacoffee.com/arrcee76" target="_blank" class="btn-bmc" title="Buy Me a Coffee">
+          <img src="../assets/bmc-white.svg" alt="Buy Me a Coffee" class="bmc-icon">
+        </a>
+        <button class="btn-lock" id="btn-start-safe">🛡️ Start Safe Browsing</button>
+      </div>
+    </header>
+
+    <!-- Guardian Bypass -->
+    <section class="card card-bypass" id="bypass-section">
+      <div class="bypass-header">
+        <div>
+          <h2>Guardian Bypass</h2>
+          <p class="help-text">Temporarily pause all blocking so you can browse freely. Protection re-enables automatically.</p>
+        </div>
+        <div class="bypass-status" id="bypass-status">
+          <span class="bypass-badge inactive">Protection Active</span>
+        </div>
+      </div>
+      <div class="bypass-controls" id="bypass-controls">
+        <button class="btn-bypass" data-minutes="15">15 min</button>
+        <button class="btn-bypass" data-minutes="30">30 min</button>
+        <button class="btn-bypass" data-minutes="60">60 min</button>
+        <button class="btn-bypass-off" id="btn-bypass-off" style="display:none">Re-enable Now</button>
+      </div>
+      <p class="bypass-timer" id="bypass-timer" style="display:none"></p>
+    </section>
+
+    <!-- Age Profile -->
+    <section class="card">
+      <h2>Age Profile</h2>
+      <p class="help-text">Sets the default protection level. Changing profile resets toggles below to that profile's defaults.</p>
+      <div class="profile-selector">
+        <label class="profile-option">
+          <input type="radio" name="profile" value="young">
+          <span class="profile-label">🧒 Young Child <small>(Under 7)</small></span>
+        </label>
+        <label class="profile-option">
+          <input type="radio" name="profile" value="child">
+          <span class="profile-label">👦 Child <small>(7–12)</small></span>
+        </label>
+        <label class="profile-option">
+          <input type="radio" name="profile" value="teen">
+          <span class="profile-label">🧑 Teen <small>(13–17)</small></span>
+        </label>
+        <label class="profile-option">
+          <input type="radio" name="profile" value="vulnerable">
+          <span class="profile-label">🧓 Vulnerable Adult <small>(Scam protection)</small></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Content Blocking -->
+    <section class="card">
+      <h2>Content Blocking</h2>
+      <p class="help-text">Toggle which content categories are blocked. All are recommended for the selected profile, but you can customise as needed.</p>
+      <div class="toggle-list" id="blocklist-toggles"></div>
+    </section>
+
+    <!-- Safe Search -->
+    <section class="card">
+      <h2>Safe Search</h2>
+      <p class="help-text">Forces filtered results on search engines and YouTube Restricted Mode. Prevents explicit content appearing in search results.</p>
+      <div class="toggle-row">
+        <div>
+          <span>Safe Search (all engines)</span>
+          <span class="toggle-help">Google, Bing, DuckDuckGo, Ecosia, YouTube</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="toggle-safesearch">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Allowed Sites -->
+    <section class="card">
+      <h2>Allowed Sites</h2>
+      <p class="help-text">These sites will never be blocked, even if they appear on a blocklist. Use this if a safe site is being blocked by mistake.</p>
+      <div class="input-row">
+        <input type="text" id="allowlist-input" placeholder="example.com">
+        <button class="btn-add" id="btn-add-allow">Add</button>
+      </div>
+      <div class="domain-list" id="allowlist"></div>
+    </section>
+
+    <!-- Excluded Sites (manual blocklist) -->
+    <section class="card">
+      <h2>Excluded Sites</h2>
+      <p class="help-text">Manually block specific sites that aren't covered by the blocklists. These are always blocked regardless of profile or bypass mode.</p>
+      <div class="input-row">
+        <input type="text" id="excluded-input" placeholder="dodgy-site.com">
+        <button class="btn-add" id="btn-add-excluded">Add</button>
+      </div>
+      <div class="domain-list" id="excluded-list"></div>
+    </section>
+
+    <!-- Review Requests -->
+    <section class="card">
+      <h2>Review Requests</h2>
+      <p class="help-text">Sites the user tried to visit multiple times and asked to be unblocked. Approve to add to the allowed list, or dismiss.</p>
+      <div class="domain-list" id="review-requests">
+        <p class="empty-state">No review requests</p>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="card">
+      <h2>Quick Stats</h2>
+      <p class="help-text">How many requests have been blocked. No URLs or browsing history are recorded — just counts.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number" id="dash-stat-today">0</span>
+          <span class="stat-label">Blocked today</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="dash-stat-week">0</span>
+          <span class="stat-label">This week</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIN + Settings Management -->
+    <section class="card card-subtle">
+      <div class="subtle-row">
+        <div class="subtle-section">
+          <h2 class="subtle-heading">Change PIN</h2>
+          <div class="pin-change-form">
+            <input type="password" id="current-pin" placeholder="Current PIN" maxlength="8" inputmode="numeric">
+            <input type="password" id="new-pin" placeholder="New PIN" maxlength="8" inputmode="numeric">
+            <input type="password" id="confirm-pin" placeholder="Confirm" maxlength="8" inputmode="numeric">
+            <button class="btn-secondary" id="btn-change-pin">Update</button>
+            <p class="pin-change-error" id="pin-change-error"></p>
+          </div>
+        </div>
+        <div class="subtle-section">
+          <h2 class="subtle-heading">Import / Export</h2>
+          <p class="help-text">Back up your settings or restore from a previous export.</p>
+          <div class="btn-col">
+            <button class="btn-secondary" id="btn-export">Export Settings</button>
+            <button class="btn-secondary" id="btn-import">Import Settings</button>
+            <input type="file" id="import-file" accept=".json" style="display:none">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="dash-footer">
+      <p>Magnetar Guardian v1.0.0 · <a href="https://github.com/ArrCee76/magnetar-guardian" target="_blank">GitHub</a> · <a href="https://buymeacoffee.com/arrcee76" target="_blank">Buy Me a Coffee</a></p>
+    </footer>
+  </div>
+
+  <script src="../lib/pin-utils.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

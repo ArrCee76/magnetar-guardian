@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Blocked — Magnetar Guardian</title>
+  <link rel="stylesheet" href="blocked.css">
+</head>
+<body>
+  <div class="blocked-container" id="blocked-container">
+    <!-- Young child (under 7) -->
+    <div class="blocked-content young" id="young-content" style="display:none">
+      <div class="mascot">🌈</div>
+      <h1>Oops! This page isn't for you right now</h1>
+      <p>Let's go somewhere fun instead!</p>
+      <button class="btn-safe" data-action="goSafe">Take me somewhere safe! ✨</button>
+    </div>
+
+    <!-- Child (7-12) -->
+    <div class="blocked-content child" id="child-content" style="display:none">
+      <div class="shield">🛡️</div>
+      <h1>This page has been blocked for your safety</h1>
+      <p>Magnetar Guardian is keeping you safe while you browse.</p>
+      <button class="btn-safe" data-action="goSafe">Go to a safe page</button>
+      <button class="btn-secondary" id="btn-request-child" data-action="requestReview" style="display:none">
+        I think this should be allowed
+      </button>
+    </div>
+
+    <!-- Teen (13-17) -->
+    <div class="blocked-content teen" id="teen-content" style="display:none">
+      <div class="shield-minimal">🛡️</div>
+      <h1>This site has been blocked</h1>
+      <p class="blocked-domain" id="blocked-domain"></p>
+      <button class="btn-safe" data-action="goSafe">Go back</button>
+      <button class="btn-secondary" id="btn-request-teen" data-action="requestReview" style="display:none">
+        Request access
+      </button>
+    </div>
+
+    <!-- Review request submitted -->
+    <div class="review-submitted" id="review-submitted" style="display:none">
+      <div class="check">✓</div>
+      <p>Your request has been sent to your guardian for review.</p>
+    </div>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>

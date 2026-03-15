@@ -1,0 +1,127 @@
+{
+  "manifest_version": 3,
+  "name": "Magnetar Guardian",
+  "version": "1.0.0",
+  "description": "Block adult content, ads, and unsafe sites. Protect your family's browsing with age-based profiles and PIN-locked settings.",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "tabs",
+    "alarms",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "settings/settings.html",
+    "open_in_tab": true
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "gambling",
+        "enabled": true,
+        "path": "rules/gambling-domains.json"
+      },
+      {
+        "id": "violence",
+        "enabled": true,
+        "path": "rules/violence-domains.json"
+      },
+      {
+        "id": "drugs",
+        "enabled": true,
+        "path": "rules/drugs-domains.json"
+      },
+      {
+        "id": "dating",
+        "enabled": true,
+        "path": "rules/dating-domains.json"
+      },
+      {
+        "id": "proxy",
+        "enabled": true,
+        "path": "rules/proxy-domains.json"
+      },
+      {
+        "id": "social",
+        "enabled": true,
+        "path": "rules/social-domains.json"
+      },
+      {
+        "id": "phishing_1",
+        "enabled": true,
+        "path": "rules/phishing-domains-1.json"
+      },
+      {
+        "id": "phishing_2",
+        "enabled": true,
+        "path": "rules/phishing-domains-2.json"
+      },
+      {
+        "id": "phishing_3",
+        "enabled": true,
+        "path": "rules/phishing-domains-3.json"
+      },
+      {
+        "id": "phishing_4",
+        "enabled": true,
+        "path": "rules/phishing-domains-4.json"
+      },
+      {
+        "id": "malware",
+        "enabled": true,
+        "path": "rules/malware-domains.json"
+      },
+      {
+        "id": "safesearch",
+        "enabled": true,
+        "path": "rules/safesearch-rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "blocked/blocked.html",
+        "blocked/blocked.css",
+        "blocked/blocked.js",
+        "assets/*",
+        "icons/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

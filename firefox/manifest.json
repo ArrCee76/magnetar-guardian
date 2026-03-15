@@ -1,0 +1,59 @@
+{
+  "manifest_version": 2,
+  "name": "Magnetar Guardian",
+  "version": "1.0.0",
+  "description": "Block adult content, ads, and unsafe sites. Protect your family's browsing with age-based profiles and PIN-locked settings.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "alarms",
+    "activeTab",
+    "webRequest",
+    "webRequestBlocking",
+    "webNavigation",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "settings/settings.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    "blocked/blocked.html",
+    "blocked/blocked.css",
+    "blocked/blocked.js",
+    "assets/*",
+    "icons/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "magnetar-guardian@arrcee76",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}

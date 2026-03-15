@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnetar Guardian</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <div class="header">
+      <div class="logo">🛡️</div>
+      <span class="title">Magnetar Guardian</span>
+    </div>
+
+    <!-- Not set up yet -->
+    <div id="state-setup" class="state" style="display:none">
+      <p class="status-text">Protection is not set up yet.</p>
+      <button class="btn" id="btn-setup" >Set Up Now</button>
+    </div>
+
+    <!-- Active and protecting -->
+    <div id="state-active" class="state" style="display:none">
+      <div class="status-badge active">
+        <span class="status-dot"></span>
+        Protection Active
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Blocked today</span>
+        <span class="stat-value" id="stat-today">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Blocked this week</span>
+        <span class="stat-value" id="stat-week">0</span>
+      </div>
+      <div class="divider"></div>
+      <button class="btn-settings" id="btn-open-settings">
+        🔒 Guardian Settings
+      </button>
+    </div>
+
+    <!-- Schedule blocked -->
+    <div id="state-scheduled" class="state" style="display:none">
+      <div class="status-badge scheduled">
+        <span class="status-dot"></span>
+        Browsing Paused
+      </div>
+      <p class="status-text">Browsing is restricted right now based on your schedule.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

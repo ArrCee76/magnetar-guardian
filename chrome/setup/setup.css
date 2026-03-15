@@ -1,0 +1,94 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0a0a2a 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: #e0e0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setup-container { width: 100%; max-width: 780px; padding: 24px; }
+
+.step {
+  display: none;
+  animation: fadeIn 0.4s ease;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 48px 40px;
+  text-align: center;
+}
+.step.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shield-icon { font-size: 64px; margin-bottom: 16px; }
+h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+h2 { font-size: 22px; font-weight: 600; margin-bottom: 8px; color: #fff; }
+.subtitle { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+.desc { font-size: 15px; color: rgba(255,255,255,0.65); margin-bottom: 28px; line-height: 1.5; }
+
+/* PIN inputs */
+.pin-input-group { margin-bottom: 16px; text-align: left; }
+.pin-input-group label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+.pin-input-group input {
+  width: 100%; padding: 14px 16px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; color: #fff; font-size: 20px;
+  letter-spacing: 8px; text-align: center; outline: none;
+}
+.pin-input-group input:focus { border-color: rgba(100,180,255,0.5); }
+.error { color: #ff6b6b; font-size: 13px; min-height: 20px; margin-bottom: 8px; }
+
+/* Profile cards — 2x2 grid */
+.profile-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.profile-card {
+  padding: 20px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 2px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.profile-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); }
+.profile-card.selected { border-color: rgba(100,180,255,0.6); background: rgba(100,180,255,0.08); }
+
+.profile-emoji { font-size: 32px; margin-bottom: 8px; }
+.profile-card h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.profile-card > p { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+.profile-desc { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.4; }
+
+/* Button */
+.btn-primary {
+  display: inline-block; padding: 14px 36px;
+  background: linear-gradient(135deg, rgba(80,140,255,0.7), rgba(120,80,255,0.7));
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;
+  color: #fff; font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: all 0.2s; margin-top: 8px;
+}
+.btn-primary:hover { background: linear-gradient(135deg, rgba(90,150,255,0.85), rgba(130,90,255,0.85)); transform: translateY(-1px); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* Progress dots */
+.progress-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.15); transition: all 0.3s; }
+.dot.active { background: rgba(100,180,255,0.7); width: 24px; border-radius: 4px; }
+
+@media (max-width: 600px) {
+  .profile-cards { grid-template-columns: 1fr; }
+  .step { padding: 32px 24px; }
+}
