@@ -340,6 +340,31 @@ async function build() {
 
   // ── Inject hardcoded core domains that blocklists often miss ──────
   const CORE_DOMAINS = {
+    adult: [
+      'pornhub.com', 'www.pornhub.com',
+      'xvideos.com', 'www.xvideos.com',
+      'xnxx.com', 'www.xnxx.com',
+      'xhamster.com', 'www.xhamster.com',
+      'redtube.com', 'www.redtube.com',
+      'youporn.com', 'www.youporn.com',
+      'tube8.com', 'www.tube8.com',
+      'spankbang.com', 'www.spankbang.com',
+      'brazzers.com', 'www.brazzers.com',
+      'chaturbate.com', 'www.chaturbate.com',
+      'stripchat.com', 'www.stripchat.com',
+      'bongacams.com', 'www.bongacams.com',
+      'livejasmin.com', 'www.livejasmin.com',
+      'cam4.com', 'www.cam4.com',
+      'onlyfans.com', 'www.onlyfans.com',
+      'fansly.com', 'www.fansly.com',
+      'porntrex.com', 'eporner.com',
+      'hqporner.com', 'daftsex.com',
+      'motherless.com', 'efukt.com',
+      'rule34.xxx', 'nhentai.net',
+      'hanime.tv', 'hentaihaven.xxx',
+      'literotica.com', 'www.literotica.com',
+      'imagineyourself.ai', 'civitai.com'
+    ],
     social: [
       'facebook.com', 'www.facebook.com', 'web.facebook.com', 'm.facebook.com',
       'instagram.com', 'www.instagram.com',
@@ -375,7 +400,7 @@ async function build() {
       categoryDomains[cat].add(d);
     }
   }
-  console.log('  Injected core social media + gambling domains');
+  console.log('  Injected core adult + social media + gambling domains');
 
   // Global deduplication: if a domain is in 'adult', don't also put it in other categories
   // Priority: adult > gambling > violence > drugs > dating > proxy > social
@@ -386,6 +411,17 @@ async function build() {
   for (const cat of priorityOrder) {
     if (!categoryDomains[cat]) continue;
     deduped[cat] = [];
+    
+    // Core domains go first so they survive budget capping
+    const coreDomains = CORE_DOMAINS[cat] || [];
+    for (const domain of coreDomains) {
+      if (!seen.has(domain) && categoryDomains[cat].has(domain)) {
+        seen.add(domain);
+        deduped[cat].push(domain);
+      }
+    }
+    
+    // Then the rest
     for (const domain of categoryDomains[cat]) {
       if (!seen.has(domain)) {
         seen.add(domain);
@@ -405,35 +441,27 @@ async function build() {
   if (totalUnique > MV3_BUDGET) {
     console.log(`  ⚠️  Over MV3 budget (${totalUnique.toLocaleString()} > ${MV3_BUDGET.toLocaleString()})`);
     
-    // Priority: keep smaller/important categories intact, cap the largest ones
-    // Sort categories by size (smallest first = highest priority to keep)
-    const catSizes = Object.entries(deduped)
-      .map(([cat, arr]) => ({ cat, count: arr.length }))
-      .sort((a, b) => a.count - b.count);
-    
+    // Keep all small categories (under 40k) in full.
+    // Split remaining budget proportionally among oversized categories.
+    // This ensures adult always gets the biggest share.
     let budgetRemaining = MV3_BUDGET;
-    const caps = {};
+    const oversized = [];
     
-    for (const { cat, count } of catSizes) {
-      if (count <= budgetRemaining) {
-        // Fits entirely
-        caps[cat] = count;
-        budgetRemaining -= count;
+    for (const [cat, arr] of Object.entries(deduped)) {
+      if (arr.length <= 40000) {
+        budgetRemaining -= arr.length;
       } else {
-        // Cap to whatever budget is left
-        const capped = Math.max(0, budgetRemaining);
-        caps[cat] = capped;
-        budgetRemaining = 0;
-        if (capped < count) {
-          console.log(`  → Capped ${cat}: ${count.toLocaleString()} → ${capped.toLocaleString()} domains`);
-        }
+        oversized.push({ cat, count: arr.length });
       }
     }
     
-    // Apply caps
-    for (const [cat, maxSize] of Object.entries(caps)) {
-      if (deduped[cat] && deduped[cat].length > maxSize) {
-        deduped[cat] = deduped[cat].slice(0, maxSize);
+    const oversizedTotal = oversized.reduce((sum, o) => sum + o.count, 0);
+    for (const { cat, count } of oversized) {
+      const share = Math.floor((count / oversizedTotal) * budgetRemaining);
+      const capped = Math.min(count, share);
+      if (capped < count) {
+        console.log(`  → Capped ${cat}: ${count.toLocaleString()} → ${capped.toLocaleString()} domains`);
+        deduped[cat] = deduped[cat].slice(0, capped);
       }
     }
     

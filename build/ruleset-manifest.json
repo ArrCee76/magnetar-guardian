@@ -1,5 +1,20 @@
 [
   {
+    "id": "adult_1",
+    "enabled": true,
+    "path": "rules/adult-domains-1.json"
+  },
+  {
+    "id": "adult_2",
+    "enabled": true,
+    "path": "rules/adult-domains-2.json"
+  },
+  {
+    "id": "adult_3",
+    "enabled": true,
+    "path": "rules/adult-domains-3.json"
+  },
+  {
     "id": "gambling",
     "enabled": true,
     "path": "rules/gambling-domains.json"
@@ -30,24 +45,9 @@
     "path": "rules/social-domains.json"
   },
   {
-    "id": "phishing_1",
+    "id": "phishing",
     "enabled": true,
-    "path": "rules/phishing-domains-1.json"
-  },
-  {
-    "id": "phishing_2",
-    "enabled": true,
-    "path": "rules/phishing-domains-2.json"
-  },
-  {
-    "id": "phishing_3",
-    "enabled": true,
-    "path": "rules/phishing-domains-3.json"
-  },
-  {
-    "id": "phishing_4",
-    "enabled": true,
-    "path": "rules/phishing-domains-4.json"
+    "path": "rules/phishing-domains.json"
   },
   {
     "id": "malware",

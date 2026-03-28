@@ -102,6 +102,29 @@
 
     <!-- Allowed Sites -->
     <section class="card">
+      <h2>Keyword Filtering</h2>
+      <p class="help-text">Blocks pages where the URL or page title contains inappropriate words. Includes a built-in list of common terms. Add your own below.</p>
+      <div class="toggle-row">
+        <div>
+          <span>Keyword Filtering</span>
+          <span class="toggle-help">Scans page URLs and titles for blocked words</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="toggle-keyword-filter" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div id="keyword-section">
+        <div class="input-row" style="margin-top: 16px;">
+          <input type="text" id="keyword-input" placeholder="Add a word or phrase">
+          <button class="btn-add" id="btn-add-keyword">Add</button>
+        </div>
+        <div class="domain-list" id="keyword-list"></div>
+      </div>
+    </section>
+
+    <!-- Allowed Sites -->
+    <section class="card">
       <h2>Allowed Sites</h2>
       <p class="help-text">These sites will never be blocked, even if they appear on a blocklist. Use this if a safe site is being blocked by mistake.</p>
       <div class="input-row">

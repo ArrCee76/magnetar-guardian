@@ -50,7 +50,8 @@ function lockAndBrowse() {
 async function loadDashboard() {
   const data = await chrome.storage.local.get([
     'ageProfile', 'blocklistsEnabled', 'allowedDomains',
-    'excludedDomains', 'reviewRequests', 'stats', 'bypassUntil'
+    'excludedDomains', 'reviewRequests', 'stats', 'bypassUntil',
+    'keywordFilterEnabled', 'customKeywords'
   ]);
 
   currentProfile = data.ageProfile || 'child';
@@ -80,6 +81,7 @@ async function loadDashboard() {
   renderReviewRequests(data.reviewRequests || []);
   renderStats(data.stats || {});
   renderBypassStatus(data.bypassUntil);
+  renderKeywordFilter(data.keywordFilterEnabled, data.customKeywords || []);
 }
 
 // ── Content Blocking Toggles ─────────────────────────────────────────
@@ -307,6 +309,57 @@ async function removeRequest(domain) {
   renderReviewRequests(requests);
 }
 
+// ── Keyword Filtering ────────────────────────────────────────────────
+
+function renderKeywordFilter(enabled, keywords) {
+  const toggle = document.getElementById('toggle-keyword-filter');
+  toggle.checked = enabled !== false; // default on
+
+  const container = document.getElementById('keyword-list');
+  container.innerHTML = '';
+
+  if (keywords.length === 0) {
+    container.innerHTML = '<p class="empty-state">No custom keywords added. Built-in keywords are always active.</p>';
+    return;
+  }
+
+  for (const keyword of keywords) {
+    const item = document.createElement('div');
+    item.className = 'domain-item';
+    const span = document.createElement('span');
+    span.textContent = keyword;
+    const btn = document.createElement('button');
+    btn.className = 'btn-remove';
+    btn.textContent = '\u00d7';
+    btn.addEventListener('click', () => removeKeyword(keyword));
+    item.appendChild(span);
+    item.appendChild(btn);
+    container.appendChild(item);
+  }
+}
+
+async function addKeyword() {
+  const input = document.getElementById('keyword-input');
+  const keyword = input.value.trim().toLowerCase();
+  if (!keyword) return;
+
+  const data = await chrome.storage.local.get(['customKeywords']);
+  const keywords = data.customKeywords || [];
+  if (!keywords.includes(keyword)) {
+    keywords.push(keyword);
+    await chrome.storage.local.set({ customKeywords: keywords });
+  }
+  input.value = '';
+  renderKeywordFilter(true, keywords);
+}
+
+async function removeKeyword(keyword) {
+  const data = await chrome.storage.local.get(['customKeywords']);
+  const keywords = (data.customKeywords || []).filter(k => k !== keyword);
+  await chrome.storage.local.set({ customKeywords: keywords });
+  renderKeywordFilter(true, keywords);
+}
+
 // ── Stats ────────────────────────────────────────────────────────────
 
 function renderStats(stats) {
@@ -401,6 +454,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Excluded sites
   document.getElementById('btn-add-excluded').addEventListener('click', addExcluded);
   document.getElementById('excluded-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') addExcluded(); });
+
+  // Keyword filter
+  document.getElementById('toggle-keyword-filter').addEventListener('change', function() {
+    chrome.storage.local.set({ keywordFilterEnabled: this.checked });
+  });
+  document.getElementById('btn-add-keyword').addEventListener('click', addKeyword);
+  document.getElementById('keyword-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') addKeyword(); });
 
   // Bypass buttons
   document.querySelectorAll('.btn-bypass').forEach(btn => {
